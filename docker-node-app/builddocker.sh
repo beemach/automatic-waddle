@@ -1,1 +1,1 @@
-docker build -t bmach/node-app:04 .
+docker build -t bmach/node-app:05 .

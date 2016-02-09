@@ -7,8 +7,19 @@ var bodyParser = require('body-parser');
 
 // Database
 var mongo = require('mongoskin');
-var db = mongo.db("mongodb://192.168.0.13:32768/snap", {native_parser:true});
+var ReplSetServers = mongo.ReplSetServers;
+var Server = mongo.Server;
+var Db = mongo.Db;
 
+var replSet = new ReplSetServers([
+        new Server('192.168.0.13',32768),
+        new Server('192.168.0.13',32769),
+        new Server('192.168.0.13',32770),
+]);
+
+// w:1 Provides acknowledgment of write operations on a standalone mongod or the primary in a replica set.
+// This is the default write concern for MongoDB.
+var db = new Db('snap', replSet, {w:1, native_parser:true});
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
