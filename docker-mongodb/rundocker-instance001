@@ -1,0 +1,10 @@
+docker rm mongo_instance_001
+docker run \
+--name mongo_instance_001 \
+--hostname="mongodb001.example.net" \
+--add-host mongodb001.example.net:192.168.0.14 \
+--add-host mongodb002.example.net:192.168.0.14 \
+--add-host mongodb003.example.net:192.168.0.14 \
+-p 32768:27017 \
+-d mongo:3.1 --replSet rs0 --smallfiles
+
